@@ -38,6 +38,13 @@ One prompt. Ten specialized agents. Zero manual tooling.
 
 Every action uses **real output from prior stages**. Nothing is fabricated. The AI remembers what it found, reasons about what to do next, and chains operations together — exactly like an experienced penetration tester would.
 
+
+---
+## Demo
+
+<a href="https://www.youtube.com/watch?v=ZfdkgtYg9xI">Link</a>
+
+
 ---
 
 ## Installation
