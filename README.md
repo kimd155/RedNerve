@@ -1,4 +1,8 @@
 <p align="center">
+  <img src="RedNerve.png" width="300" height="auto" />
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/RedNerve-AI%20Red%20Team-b00020?style=for-the-badge&labelColor=0f0f0f" />
   <img src="https://img.shields.io/badge/Kill%20Chain-Autonomous-ff1744?style=for-the-badge&labelColor=0f0f0f" />
   <img src="https://img.shields.io/badge/Powered%20By-Claude%20AI-7c3aed?style=for-the-badge&labelColor=0f0f0f" />
@@ -81,6 +85,8 @@ DATABASE_URL=sqlite+aiosqlite:///rednerve.db
 SECRET_KEY=change-this-to-a-random-string
 ```
 
+** NOTE: You can do all of this from the /settings page **
+
 > **Important:** The `ANTHROPIC_API_KEY` is required. Without it, RedNerve will show a configuration error when you try to send commands. You can also configure the API key from the **Settings** page in the UI after launching.
 
 ### Step 3 — Launch the Server
@@ -119,18 +125,18 @@ Open the **Command** page, select a beacon, and start issuing commands in natura
 
 ```
                     ┌─────────────────────────────────┐
-                    │         Operator (You)           │
-                    │      Natural Language Input      │
+                    │         Operator (You)          │
+                    │      Natural Language Input     │
                     └───────────────┬─────────────────┘
                                     │ WebSocket
                     ┌───────────────▼─────────────────┐
-                    │          Orchestrator            │
-                    │    Claude AI + Tool-Use API      │
-                    │   Intent Parsing → Dispatching   │
+                    │          Orchestrator           │
+                    │    Claude AI + Tool-Use API     │
+                    │   Intent Parsing → Dispatching  │
                     └───┬───┬───┬───┬───┬───┬───┬───┬─┘
                         │   │   │   │   │   │   │   │
               ┌─────────▼───▼───▼───▼───▼───▼───▼───▼──────────┐
-              │              10 Specialized Agents              │
+              │              10 Specialized Agents             │
               │                                                │
               │  Recon · Credential · Execution · Lateral Move │
               │  PrivEsc · Persistence · Exfiltration · Intel  │
@@ -140,9 +146,9 @@ Open the **Command** page, select a beacon, and start issuing commands in natura
               ┌────────────────────▼───────────────────────────┐
               │              Beacon Network                    │
               │                                                │
-              │    ┌──────┐  ┌──────┐  ┌──────┐  ┌──────┐     │
-              │    │ DC01 │  │ WS01 │  │ SQL01│  │ WEB01│     │
-              │    └──────┘  └──────┘  └──────┘  └──────┘     │
+              │    ┌──────┐  ┌──────┐  ┌──────┐  ┌──────┐      │
+              │    │ DC01 │  │ WS01 │  │ SQL01│  │ WEB01│      │
+              │    └──────┘  └──────┘  └──────┘  └──────┘      │
               │         Active Directory Lab Environment       │
               └────────────────────────────────────────────────┘
 ```
