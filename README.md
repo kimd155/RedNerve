@@ -58,7 +58,7 @@ Every action uses **real output from prior stages**. Nothing is fabricated. The 
 ### Step 1 — Clone & Install Dependencies
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/kimd155/RedNerve.git
 cd rednerve
 pip install -r requirements.txt
 ```
