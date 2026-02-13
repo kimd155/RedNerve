@@ -1,0 +1,214 @@
+.settings-container {
+    padding: 20px;
+    max-width: 720px;
+    margin: 0 auto;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.settings-header {
+    margin-bottom: 24px;
+}
+
+.settings-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.settings-loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+/* ─── Setting Group ───────────────────────────────── */
+.setting-group {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    transition: border-color 0.2s;
+}
+
+.setting-group:focus-within {
+    border-color: var(--accent);
+}
+
+.setting-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.setting-label {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.setting-key {
+    font-size: 10px;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    background: var(--bg-primary);
+    padding: 2px 8px;
+    border-radius: 3px;
+}
+
+.setting-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+/* ─── Inputs ──────────────────────────────────────── */
+.setting-input-wrap {
+    position: relative;
+    display: flex;
+    gap: 8px;
+}
+
+.setting-input {
+    flex: 1;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.setting-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(176, 0, 32, 0.2);
+}
+
+.setting-input::placeholder {
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+}
+
+.setting-input[type="number"] {
+    max-width: 160px;
+}
+
+/* Select */
+.setting-select {
+    flex: 1;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+}
+
+.setting-select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(176, 0, 32, 0.2);
+}
+
+.setting-select option {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+/* Toggle visibility button for password fields */
+.toggle-visibility {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    color: var(--text-secondary);
+    padding: 0 12px;
+    cursor: pointer;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.toggle-visibility:hover {
+    color: var(--accent-glow);
+    border-color: var(--accent);
+}
+
+/* ─── Actions ─────────────────────────────────────── */
+.settings-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.settings-save {
+    padding: 12px 32px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.settings-save:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.settings-status {
+    font-size: 12px;
+    transition: opacity 0.3s;
+}
+
+.settings-status.success {
+    color: var(--success);
+}
+
+.settings-status.error {
+    color: var(--error);
+}
+
+/* ─── Footer ──────────────────────────────────────── */
+.settings-footer {
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+
+.settings-note {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.settings-note strong {
+    color: var(--warning);
+}
+
+/* ─── Restart badge ───────────────────────────────── */
+.restart-badge {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--warning);
+    background: rgba(255, 145, 0, 0.1);
+    border: 1px solid rgba(255, 145, 0, 0.2);
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 8px;
+}

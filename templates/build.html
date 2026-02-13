@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% set active_page = "build" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/build.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="build-container">
+    <div class="build-header">
+        <h2 class="page-title">Implant Builder</h2>
+        <p class="page-subtitle">Configure and generate beacon payloads for deployment</p>
+    </div>
+
+    <div class="build-layout">
+        <div class="build-form-panel">
+            <form id="build-form" class="build-form">
+                <!-- Target OS -->
+                <div class="form-section">
+                    <label class="form-label">Target Operating System</label>
+                    <div class="os-selector">
+                        <label class="os-option">
+                            <input type="radio" name="os" value="windows" checked>
+                            <div class="os-card">
+                                <span class="os-icon">&#9638;</span>
+                                <span class="os-name">Windows</span>
+                            </div>
+                        </label>
+                        <label class="os-option">
+                            <input type="radio" name="os" value="linux">
+                            <div class="os-card">
+                                <span class="os-icon">&#9678;</span>
+                                <span class="os-name">Linux</span>
+                            </div>
+                        </label>
+                        <label class="os-option">
+                            <input type="radio" name="os" value="macos">
+                            <div class="os-card">
+                                <span class="os-icon">&#9788;</span>
+                                <span class="os-name">macOS</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Output Format -->
+                <div class="form-section">
+                    <label class="form-label">Output Format</label>
+                    <div class="format-selector" id="format-selector">
+                        <label class="format-option">
+                            <input type="radio" name="format" value="py" checked>
+                            <div class="format-card">
+                                <span class="format-ext">.py</span>
+                                <span class="format-name">Python Script</span>
+                                <span class="format-desc">Portable, requires Python</span>
+                            </div>
+                        </label>
+                        <label class="format-option">
+                            <input type="radio" name="format" value="ps1">
+                            <div class="format-card">
+                                <span class="format-ext">.ps1</span>
+                                <span class="format-name">PowerShell</span>
+                                <span class="format-desc">Windows native, no deps</span>
+                            </div>
+                        </label>
+                        <label class="format-option">
+                            <input type="radio" name="format" value="sh">
+                            <div class="format-card">
+                                <span class="format-ext">.sh</span>
+                                <span class="format-name">Bash Script</span>
+                                <span class="format-desc">Linux/macOS native</span>
+                            </div>
+                        </label>
+                        <label class="format-option">
+                            <input type="radio" name="format" value="exe">
+                            <div class="format-card">
+                                <span class="format-ext">.exe</span>
+                                <span class="format-name">Executable</span>
+                                <span class="format-desc">Compiled, needs PyInstaller</span>
+                            </div>
+                        </label>
+                        <label class="format-option">
+                            <input type="radio" name="format" value="elf">
+                            <div class="format-card">
+                                <span class="format-ext">ELF</span>
+                                <span class="format-name">Linux Binary</span>
+                                <span class="format-desc">Compiled, needs PyInstaller</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Connection Settings -->
+                <div class="form-section">
+                    <label class="form-label">Connection Settings</label>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-sublabel">C2 Server URL</label>
+                            <input type="text" name="server" class="input" value="http://{{ request.headers.get('host', '127.0.0.1:9999') }}" placeholder="http://10.0.0.1:9999">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-sublabel">Beacon Secret</label>
+                            <input type="text" name="secret" class="input" value="{{ beacon_secret }}" placeholder="Authentication key">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timing -->
+                <div class="form-section">
+                    <label class="form-label">Timing Configuration</label>
+                    <div class="form-grid form-grid-3">
+                        <div class="form-group">
+                            <label class="form-sublabel">Check-in Interval (sec)</label>
+                            <input type="number" name="interval" class="input" value="5" min="1" max="3600">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-sublabel">Jitter (%)</label>
+                            <input type="number" name="jitter" class="input" value="10" min="0" max="50">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-sublabel">Initial Sleep (sec)</label>
+                            <input type="number" name="sleep" class="input" value="0" min="0" max="86400">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Options -->
+                <div class="form-section">
+                    <label class="form-label">Options</label>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="auto_persist" id="auto_persist">
+                                <span class="checkbox-custom"></span>
+                                Auto-install persistence on first run
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-sublabel">Kill Date (optional)</label>
+                            <input type="date" name="kill_date" class="input">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Build Button -->
+                <div class="form-section">
+                    <button type="submit" class="btn btn-primary build-btn" id="build-btn">
+                        <span class="build-btn-text">Build Implant</span>
+                        <span class="build-btn-loading" style="display:none;">Building...</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Build Output / Downloads -->
+        <div class="build-output-panel">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Build Output</span>
+                </div>
+                <div id="build-result" class="build-result">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">&#9881;</div>
+                        <div class="empty-state-text">Configure and build an implant</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 12px;">
+                <div class="card-header">
+                    <span class="card-title">Previous Builds</span>
+                    <button class="btn" id="refresh-builds" style="padding: 4px 10px; font-size: 11px;">Refresh</button>
+                </div>
+                <div id="builds-list" class="builds-list">
+                    <div class="empty-state">
+                        <div class="empty-state-text">No builds yet</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', path='js/build.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% set active_page = "targets" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/targets.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="targets-container">
+    <div class="targets-header">
+        <h2 class="page-title">Target Systems</h2>
+        <div class="targets-controls">
+            <div class="search-bar">
+                <input type="text" class="input" id="target-search" placeholder="Search targets...">
+            </div>
+            <div class="filter-group">
+                <button class="btn filter-btn active" data-filter="all">All</button>
+                <button class="btn filter-btn" data-filter="online">Online</button>
+                <button class="btn filter-btn" data-filter="offline">Offline</button>
+                <button class="btn filter-btn" data-filter="pending">Pending</button>
+            </div>
+        </div>
+    </div>
+    <div class="targets-grid" id="targets-grid">
+        <div class="empty-state" id="targets-empty">
+            <div class="empty-state-icon">&#9673;</div>
+            <div class="empty-state-text">No targets registered</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', path='js/targets.js') }}"></script>
+{% endblock %}

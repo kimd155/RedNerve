@@ -1,0 +1,122 @@
+/* Fade in */
+.fade-in {
+    animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Glitch logo */
+.glitch-logo {
+    position: relative;
+    color: var(--accent-glow);
+    font-weight: bold;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.glitch-logo::before,
+.glitch-logo::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.glitch-logo::before {
+    color: #0ff;
+    animation: glitch1 3s infinite;
+}
+
+.glitch-logo::after {
+    color: #f0f;
+    animation: glitch2 3s infinite;
+}
+
+@keyframes glitch1 {
+    0%, 90%, 100% { opacity: 0; transform: translate(0); }
+    91% { opacity: 0.8; transform: translate(-2px, 1px); clip-path: inset(20% 0 60% 0); }
+    93% { opacity: 0.8; transform: translate(2px, -1px); clip-path: inset(50% 0 20% 0); }
+    95% { opacity: 0; }
+}
+
+@keyframes glitch2 {
+    0%, 88%, 100% { opacity: 0; transform: translate(0); }
+    89% { opacity: 0.8; transform: translate(2px, -1px); clip-path: inset(40% 0 30% 0); }
+    91% { opacity: 0.8; transform: translate(-2px, 1px); clip-path: inset(10% 0 70% 0); }
+    93% { opacity: 0; }
+}
+
+/* Pulse animation for status indicators */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Slide in from left */
+.slide-in-left {
+    animation: slideInLeft 0.3s ease forwards;
+}
+
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Typing cursor blink */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.typing-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 16px;
+    background: var(--accent-glow);
+    margin-left: 2px;
+    animation: blink 0.8s step-end infinite;
+    vertical-align: text-bottom;
+}
+
+/* Scan line effect */
+@keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+}
+
+.scanline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-glow), transparent);
+    opacity: 0.1;
+    z-index: 99;
+    animation: scanline 8s linear infinite;
+    pointer-events: none;
+}
+
+/* Background code rain */
+@keyframes codeRain {
+    0% { transform: translateY(-100%); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
+}
+
+.code-line {
+    position: absolute;
+    white-space: nowrap;
+    animation: codeRain linear infinite;
+}

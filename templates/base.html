@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}RedNerve{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/components.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/animations.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div id="bg-animation" class="bg-animation"></div>
+
+    <nav class="nav">
+        <div class="nav-brand">
+            <span class="glitch-logo" data-text="RedNerve">RedNerve</span>
+        </div>
+        <div class="nav-links">
+            <a href="/" class="nav-link {% if active_page == 'chat' %}active{% endif %}">Command</a>
+            <a href="/targets" class="nav-link {% if active_page == 'targets' %}active{% endif %}">Targets</a>
+            <a href="/dashboard" class="nav-link {% if active_page == 'dashboard' %}active{% endif %}">Dashboard</a>
+            <a href="/build" class="nav-link {% if active_page == 'build' %}active{% endif %}">Build</a>
+            <a href="/settings" class="nav-link {% if active_page == 'settings' %}active{% endif %}">Settings</a>
+        </div>
+        <div class="nav-status">
+            <span class="status-dot" id="ws-status"></span>
+            <span class="status-text" id="ws-status-text">Connecting...</span>
+        </div>
+    </nav>
+
+    <main class="main-content fade-in">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="{{ url_for('static', path='js/state.js') }}"></script>
+    <script src="{{ url_for('static', path='js/app.js') }}"></script>
+    <script src="{{ url_for('static', path='js/effects.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

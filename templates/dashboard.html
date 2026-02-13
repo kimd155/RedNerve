@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% set active_page = "dashboard" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/targets.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <div class="dashboard-header-row">
+            <h2 class="page-title">Dashboard</h2>
+            <button class="btn btn-primary" id="generate-report-btn">Make a Report</button>
+        </div>
+    </div>
+
+    <!-- Beacon Findings Cards -->
+    <div class="findings-grid" id="findings-grid">
+        <div class="empty-state">
+            <div class="empty-state-text">No findings yet — run some agents first</div>
+        </div>
+    </div>
+
+    <!-- Reports Table -->
+    <div class="reports-section">
+        <h3 class="section-title">Reports</h3>
+        <div id="reports-table-container">
+            <div class="empty-state">
+                <div class="empty-state-text">No reports generated yet</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Activity Feed -->
+    <div class="dashboard-log-panel">
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Live Activity Feed</span>
+                <div class="log-filters">
+                    <button class="btn filter-btn active" data-level="all">All</button>
+                    <button class="btn filter-btn" data-level="info">Info</button>
+                    <button class="btn filter-btn" data-level="warn">Warn</button>
+                    <button class="btn filter-btn" data-level="error">Error</button>
+                </div>
+            </div>
+            <div class="log-feed" id="log-feed">
+                <div class="empty-state">
+                    <div class="empty-state-text">No activity yet</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Findings Detail Modal -->
+<div class="modal-overlay" id="findings-modal" style="display:none;">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-agent-name"></h3>
+            <button class="modal-close" id="modal-close">&times;</button>
+        </div>
+        <div class="modal-body" id="modal-body">
+        </div>
+    </div>
+</div>
+
+<!-- Report Modal -->
+<div class="modal-overlay" id="report-modal" style="display:none;">
+    <div class="modal-container" style="max-width:500px;">
+        <div class="modal-header">
+            <h3 class="modal-title">Generate Report</h3>
+            <button class="modal-close" id="report-modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p style="color:var(--text-secondary);font-size:13px;margin-bottom:14px;">
+                Select which beacon to include in the report, or generate a full report with all findings.
+            </p>
+            <label style="font-size:12px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:6px;">Beacon</label>
+            <select id="report-agent-select" class="beacon-dropdown" style="width:100%;margin-bottom:16px;">
+                <option value="all">All Beacons</option>
+            </select>
+            <button class="btn btn-primary" id="report-modal-generate" style="width:100%;">Generate Report</button>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toast-container"></div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', path='js/agents.js') }}"></script>
+{% endblock %}
